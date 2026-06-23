@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تقييم أعراض البروستاتا - IPSS</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+
+  :root {
+    --navy: #0B2545;
+    --teal: #1B6CA8;
+    --teal-light: #2196C4;
+    --gold: #C9A84C;
+    --gold-light: #F0D080;
+    --cream: #F8F7F4;
+    --white: #FFFFFF;
+    --gray-soft: #EDF2F7;
+    --gray-mid: #A0AEC0;
+    --gray-text: #4A5568;
+    --success: #2D9E6B;
+    --danger: #E53E3E;
+    --mild: #2D9E6B;
+    --moderate: #D97706;
+    --severe: #DC2626;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    min-height: 100vh;
+    direction: rtl;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, var(--navy) 0%, #0D3260 60%, var(--teal) 100%);
+    padding: 28px 24px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: -40px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.12);
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: -30px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(27,108,168,0.18);
+  }
+  .header-icon {
+    font-size: 36px;
+    margin-bottom: 6px;
+    display: block;
+    position: relative; z-index: 1;
+  }
+  .doctor-name {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: 0.5px;
+    position: relative; z-index: 1;
+    line-height: 1.15;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+  .doctor-name span {
+    color: var(--gold);
+  }
+  .doctor-title {
+    font-size: 13px;
+    color: var(--gold-light);
+    font-weight: 600;
+    margin-top: 4px;
+    position: relative; z-index: 1;
+    letter-spacing: 0.3px;
+  }
+  header h1 {
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.75);
+    margin-top: 14px;
+    position: relative; z-index: 1;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 12px;
+  }
+  header .subtitle {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 2px;
+    font-weight: 400;
+    position: relative; z-index: 1;
+  }
+  .clinic-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.2);
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 14px;
+    border-radius: 20px;
+    margin-top: 10px;
+    position: relative; z-index: 1;
+  }
+  .clinic-wa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(37,211,102,0.18);
+    border: 1.5px solid rgba(37,211,102,0.5);
+    color: #7FFAB5;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-top: 10px;
+    position: relative; z-index: 1;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .clinic-wa-btn:hover {
+    background: rgba(37,211,102,0.3);
+    color: #fff;
+  }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    background: var(--navy);
+    border-bottom: 2px solid var(--gold);
+  }
+  .tab {
+    flex: 1;
+    padding: 12px 8px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-mid);
+    cursor: pointer;
+    transition: all 0.25s;
+    border: none;
+    background: none;
+    font-family: 'Cairo', sans-serif;
+  }
+  .tab.active {
+    color: var(--gold);
+    border-bottom: 3px solid var(--gold);
+    background: rgba(201,168,76,0.08);
+  }
+  .tab:hover:not(.active) { color: var(--white); }
+
+  /* ── MAIN CONTENT ── */
+  .page { display: none; padding: 0; }
+  .page.active { display: block; }
+
+  /* ── PATIENT INFO ── */
+  .patient-form {
+    background: var(--white);
+    margin: 16px;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(11,37,69,0.07);
+  }
+  .section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title span { color: var(--teal); font-size: 18px; }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .field-row.single { grid-template-columns: 1fr; }
+
+  .field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray-text);
+    margin-bottom: 5px;
+  }
+  .field input, .field select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid #DDE3EC;
+    border-radius: 10px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    color: var(--navy);
+    background: var(--gray-soft);
+    transition: border 0.2s;
+    direction: rtl;
+  }
+  .field input:focus, .field select:focus {
+    outline: none;
+    border-color: var(--teal);
+    background: var(--white);
+  }
+
+  /* ── IPSS QUESTIONS ── */
+  .q-card {
+    background: var(--white);
+    margin: 12px 16px;
+    border-radius: 16px;
+    padding: 18px 16px;
+    box-shadow: 0 2px 10px rgba(11,37,69,0.06);
+    border-right: 4px solid var(--teal);
+    transition: box-shadow 0.2s;
+  }
+  .q-card:hover { box-shadow: 0 4px 18px rgba(11,37,69,0.1); }
+  .q-card.answered { border-right-color: var(--success); }
+
+  .q-number {
+    display: inline-block;
+    background: var(--teal);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 9px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+  .q-card.answered .q-number { background: var(--success); }
+
+  .q-text {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .q-sub {
+    font-size: 12px;
+    color: var(--gray-text);
+    margin-top: 3px;
+    font-weight: 400;
+  }
+
+  /* Options grid */
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+  .opt-btn {
+    background: var(--gray-soft);
+    border: 2px solid #DDE3EC;
+    border-radius: 10px;
+    padding: 8px 4px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    font-family: 'Cairo', sans-serif;
+  }
+  .opt-btn .opt-score {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--navy);
+    display: block;
+  }
+  .opt-btn .opt-label {
+    font-size: 10px;
+    color: var(--gray-text);
+    display: block;
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+  .opt-btn:hover {
+    border-color: var(--teal-light);
+    background: #EBF4FB;
+    transform: translateY(-1px);
+  }
+  .opt-btn.selected {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+    border-color: var(--teal);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(27,108,168,0.3);
+  }
+  .opt-btn.selected .opt-score { color: var(--white); }
+  .opt-btn.selected .opt-label { color: rgba(255,255,255,0.85); }
+
+  /* QoL special */
+  .qol-options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+  .qol-opt {
+    background: var(--gray-soft);
+    border: 2px solid #DDE3EC;
+    border-radius: 10px;
+    padding: 10px 4px;
+    cursor: pointer;
+    text-align: center;
+    font-family: 'Cairo', sans-serif;
+    transition: all 0.2s;
+  }
+  .qol-opt .qol-emoji { font-size: 22px; display: block; margin-bottom: 3px; }
+  .qol-opt .qol-label { font-size: 10px; color: var(--gray-text); display: block; }
+  .qol-opt.selected {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.12);
+    box-shadow: 0 4px 12px rgba(201,168,76,0.2);
+  }
+  .qol-opt.selected .qol-label { color: var(--navy); font-weight: 700; }
+
+  /* ── SCORE CARD ── */
+  .score-section { padding: 16px; }
+
+  .score-hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #0D3260 100%);
+    border-radius: 20px;
+    padding: 28px 20px;
+    text-align: center;
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .score-hero::before {
+    content: '';
+    position: absolute;
+    top: -30px; left: -30px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.1);
+  }
+  .score-label { font-size: 13px; color: var(--gold-light); font-weight: 600; margin-bottom: 6px; }
+  .score-big {
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .score-max { font-size: 20px; color: rgba(255,255,255,0.5); font-weight: 300; }
+  .score-category {
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 10px;
+  }
+  .cat-mild { background: rgba(45,158,107,0.2); color: #4ECB8D; border: 1px solid rgba(45,158,107,0.4); }
+  .cat-moderate { background: rgba(217,119,6,0.2); color: #F6C94E; border: 1px solid rgba(217,119,6,0.4); }
+  .cat-severe { background: rgba(220,38,38,0.2); color: #FC8181; border: 1px solid rgba(220,38,38,0.4); }
+
+  /* Progress bar */
+  .progress-bar-wrap {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    height: 8px;
+    margin: 16px 0 6px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+    transition: width 0.8s ease;
+  }
+
+  /* Score breakdown */
+  .breakdown-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 10px rgba(11,37,69,0.06);
+  }
+  .breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--gray-soft);
+    font-size: 13px;
+  }
+  .breakdown-item:last-child { border-bottom: none; }
+  .breakdown-item .b-label { color: var(--gray-text); flex: 1; padding-left: 8px; }
+  .breakdown-item .b-score {
+    background: var(--navy);
+    color: var(--white);
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* QoL result */
+  .qol-result {
+    background: linear-gradient(135deg, #FFF8E7 0%, #FFF3CC 100%);
+    border: 1.5px solid var(--gold);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .qol-result .qol-big-emoji { font-size: 36px; }
+  .qol-result .qol-title { font-size: 13px; color: var(--gray-text); font-weight: 600; margin-top: 6px; }
+  .qol-result .qol-value { font-size: 16px; color: var(--navy); font-weight: 800; margin-top: 2px; }
+
+  /* Recommendation */
+  .reco-card {
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .reco-mild { background: rgba(45,158,107,0.08); border: 1.5px solid rgba(45,158,107,0.3); }
+  .reco-moderate { background: rgba(217,119,6,0.08); border: 1.5px solid rgba(217,119,6,0.3); }
+  .reco-severe { background: rgba(220,38,38,0.08); border: 1.5px solid rgba(220,38,38,0.3); }
+  .reco-title { font-weight: 800; font-size: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+
+  /* Action buttons */
+  .action-buttons { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 20px;
+    border-radius: 14px;
+    border: none;
+    font-family: 'Cairo', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+    color: var(--white);
+    box-shadow: 0 4px 14px rgba(27,108,168,0.3);
+  }
+  .btn-primary:hover { box-shadow: 0 6px 20px rgba(27,108,168,0.4); transform: translateY(-1px); }
+  .btn-whatsapp {
+    background: linear-gradient(135deg, #25D366 0%, #20BA5A 100%);
+    color: var(--white);
+    box-shadow: 0 4px 14px rgba(37,211,102,0.3);
+  }
+  .btn-whatsapp:hover { box-shadow: 0 6px 20px rgba(37,211,102,0.4); transform: translateY(-1px); }
+  .btn-outline {
+    background: var(--white);
+    border: 2px solid var(--navy);
+    color: var(--navy);
+  }
+  .btn-danger {
+    background: linear-gradient(135deg, #E53E3E 0%, #C53030 100%);
+    color: var(--white);
+    font-size: 13px;
+    padding: 10px 16px;
+  }
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%);
+    color: var(--white);
+    box-shadow: 0 4px 14px rgba(201,168,76,0.3);
+  }
+
+  /* ── DATABASE ── */
+  .stat-box {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 14px 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(11,37,69,0.06);
+  }
+  .stat-box .stat-num { font-size: 26px; font-weight: 900; color: var(--navy); }
+  .stat-box .stat-lbl { font-size: 11px; color: var(--gray-text); margin-top: 2px; }
+
+  .search-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .search-bar input {
+    flex: 1;
+    padding: 11px 14px;
+    border: 1.5px solid #DDE3EC;
+    border-radius: 12px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    background: var(--white);
+    color: var(--navy);
+    direction: rtl;
+  }
+  .search-bar input:focus { outline: none; border-color: var(--teal); }
+
+  .patient-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(11,37,69,0.06);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-right: 4px solid transparent;
+  }
+  .patient-card:hover { box-shadow: 0 4px 16px rgba(11,37,69,0.1); border-right-color: var(--teal); }
+  .patient-avatar {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal) 0%, var(--navy) 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+  .patient-info { flex: 1; min-width: 0; }
+  .patient-name { font-size: 14px; font-weight: 700; color: var(--navy); }
+  .patient-meta { font-size: 11px; color: var(--gray-text); margin-top: 2px; }
+  .patient-score-badge {
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .badge-num {
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .badge-cat { font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 10px; margin-top: 2px; display: block; }
+  .badge-mild { color: var(--mild); }
+  .badge-moderate { color: var(--moderate); }
+  .badge-severe { color: var(--severe); }
+  .bg-mild { background: rgba(45,158,107,0.12); color: var(--mild); }
+  .bg-moderate { background: rgba(217,119,6,0.12); color: var(--moderate); }
+  .bg-severe { background: rgba(220,38,38,0.12); color: var(--severe); }
+
+  .empty-state {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--gray-mid);
+  }
+  .empty-state .empty-icon { font-size: 48px; margin-bottom: 12px; }
+  .empty-state p { font-size: 14px; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(11,37,69,0.7);
+    z-index: 100;
+    align-items: flex-end;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--white);
+    border-radius: 24px 24px 0 0;
+    padding: 24px 20px 36px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  .modal-handle {
+    width: 40px; height: 4px;
+    background: #DDE3EC;
+    border-radius: 2px;
+    margin: 0 auto 20px;
+  }
+  .modal-title { font-size: 17px; font-weight: 800; color: var(--navy); margin-bottom: 16px; }
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gray-soft);
+    font-size: 13px;
+  }
+  .detail-row:last-of-type { border-bottom: none; }
+  .detail-label { color: var(--gray-text); }
+  .detail-value { font-weight: 700; color: var(--navy); }
+
+  /* ── FLOATING CALC ── */
+  .sticky-calc {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--white);
+    border-top: 2px solid var(--gray-soft);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 50;
+    box-shadow: 0 -4px 20px rgba(11,37,69,0.1);
+  }
+  .calc-info { flex: 1; }
+  .calc-score-display {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .calc-answered { font-size: 11px; color: var(--gray-text); margin-top: 2px; }
+  .calc-btn {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%);
+    color: var(--white);
+    border: none;
+    border-radius: 14px;
+    padding: 12px 20px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .calc-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .calc-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-80px);
+    background: var(--success);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    z-index: 200;
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  .page-assessment { padding-bottom: 80px; }
+  .page-results { padding-bottom: 24px; }
+
+  .notice {
+    background: rgba(27,108,168,0.08);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 12px;
+    color: var(--teal);
+    margin: 0 16px 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.6;
+  }
+  .export-row { display: flex; gap: 8px; margin-bottom: 12px; }
+  .export-row .btn { flex: 1; font-size: 13px; padding: 11px; }
+
+  /* ── SUBSCORES ── */
+  .subscores-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .subscore-card {
+    border-radius: 16px;
+    padding: 16px 14px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .subscore-card.voiding {
+    background: linear-gradient(135deg, #0B2545 0%, #1B4080 100%);
+    box-shadow: 0 4px 14px rgba(11,37,69,0.2);
+  }
+  .subscore-card.storage {
+    background: linear-gradient(135deg, #1B4A3A 0%, #2D7A5E 100%);
+    box-shadow: 0 4px 14px rgba(27,74,58,0.2);
+  }
+  .subscore-card::before {
+    content: '';
+    position: absolute;
+    top: -20px; left: -20px;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .subscore-icon { font-size: 22px; margin-bottom: 4px; display: block; }
+  .subscore-title { font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 600; margin-bottom: 6px; }
+  .subscore-en { font-size: 9px; color: rgba(255,255,255,0.4); display: block; margin-bottom: 8px; }
+  .subscore-num {
+    font-size: 38px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+  }
+  .subscore-max { font-size: 13px; color: rgba(255,255,255,0.45); }
+  .subscore-bar-wrap {
+    background: rgba(255,255,255,0.12);
+    border-radius: 6px;
+    height: 5px;
+    margin: 8px 0 6px;
+    overflow: hidden;
+  }
+  .subscore-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.8s ease;
+  }
+  .voiding .subscore-bar-fill { background: linear-gradient(90deg, #7EB8F7 0%, #B8D8FF 100%); }
+  .storage .subscore-bar-fill { background: linear-gradient(90deg, #7FD4AC 0%, #B8F0D4 100%); }
+  .subscore-cat {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-top: 2px;
+  }
+  .subscore-cat.s-mild { background: rgba(127,212,172,0.25); color: #A8F0CC; }
+  .subscore-cat.s-moderate { background: rgba(246,201,78,0.25); color: #F6E07E; }
+  .subscore-cat.s-severe { background: rgba(252,129,129,0.25); color: #FCA5A5; }
+
+  .subscore-items {
+    margin-top: 10px;
+    text-align: right;
+  }
+  .subscore-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: rgba(255,255,255,0.6);
+    padding: 3px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .subscore-item:last-child { border-bottom: none; }
+  .subscore-item .si-val {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="header-icon">🏥</span>
+  <div class="doctor-name">أ.د. <span>محمد جلال الشيخ</span></div>
+  <div class="doctor-title">أستاذ جراحة المسالك البولية والتناسلية — كلية الطب، جامعة القاهرة</div>
+  <h1>مقياس أعراض البروستاتا الدولي — IPSS</h1>
+  <div class="subtitle">International Prostate Symptom Score</div>
+  <br>
+  <button class="clinic-wa-btn" onclick="sendToClinicWA()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    إرسال النتيجة لواتساب العيادة
+  </button>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('assessment')">📋 التقييم</button>
+  <button class="tab" onclick="switchTab('results')">📊 النتيجة</button>
+</div>
+
+<!-- ═══════════════════════════════════════
+     TAB 1: ASSESSMENT
+     ═══════════════════════════════════════ -->
+<div id="tab-assessment" class="page active page-assessment">
+
+  <!-- Patient Info -->
+  <div class="patient-form" style="margin-top:16px">
+    <div class="section-title"><span>👤</span> بيانات المريض</div>
+    <div class="field-row">
+      <div class="field">
+        <label>الاسم الكامل *</label>
+        <input type="text" id="pt-name" placeholder="اسم المريض">
+      </div>
+      <div class="field">
+        <label>رقم الملف / الهاتف</label>
+        <input type="text" id="pt-id" placeholder="01xxxxxxxxx">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>العمر</label>
+        <input type="number" id="pt-age" placeholder="مثال: 58" min="18" max="100">
+      </div>
+      <div class="field">
+        <label>تاريخ التقييم</label>
+        <input type="date" id="pt-date">
+      </div>
+    </div>
+  </div>
+
+  <div class="notice">
+    ℹ️ اقرأ كل سؤال بعناية واختر الإجابة التي تصف حالتك خلال <strong>الشهر الماضي</strong>. لا توجد إجابات صح أو خطأ.
+  </div>
+
+  <!-- Q1 -->
+  <div class="q-card" id="qcard-0">
+    <span class="q-number">سؤال ١ من ٧</span>
+    <div class="q-text">خلال الشهر الماضي، كم مرة شعرت بأن المثانة لم تفرغ تمامًا بعد التبول؟
+      <div class="q-sub">الإحساس ببقاء بول في المثانة بعد الانتهاء من التبول</div>
+    </div>
+    <div class="options-grid" id="opts-0">
+      <button class="opt-btn" onclick="selectOption(0,0)"><span class="opt-score">0</span><span class="opt-label">أبدًا — 0%</span></button>
+      <button class="opt-btn" onclick="selectOption(0,1)"><span class="opt-score">1</span><span class="opt-label">نادرًا — 20%</span></button>
+      <button class="opt-btn" onclick="selectOption(0,2)"><span class="opt-score">2</span><span class="opt-label">أحيانًا — 33%</span></button>
+      <button class="opt-btn" onclick="selectOption(0,3)"><span class="opt-score">3</span><span class="opt-label">نصف الوقت — 50%</span></button>
+      <button class="opt-btn" onclick="selectOption(0,4)"><span class="opt-score">4</span><span class="opt-label">غالبًا — 70%</span></button>
+      <button class="opt-btn" onclick="selectOption(0,5)"><span class="opt-score">5</span><span class="opt-label">دائمًا — 100%</span></button>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" id="qcard-1">
+    <span class="q-number">سؤال ٢ من ٧</span>
+    <div class="q-text">خلال الشهر الماضي، كم مرة اضطررت للتبول مرة أخرى بعد أقل من ساعتين؟
+      <div class="q-sub">التكرار الشديد في التبول بفترات قصيرة</div>
+    </div>
+    <div class="options-grid" id="opts-1">
+      <button class="opt-btn" onclick="selectOption(1,0)"><span class="opt-score">0</span><span class="opt-label">أبدًا — 0%</span></button>
+      <button class="opt-btn" onclick="selectOption(1,1)"><span class="opt-score">1</span><span class="opt-label">نادرًا — 20%</span></button>
+      <button class="opt-btn" onclick="selectOption(1,2)"><span class="opt-score">2</span><span class="opt-label">أحيانًا — 33%</span></button>
+      <button class="opt-btn" onclick="selectOption(1,3)"><span class="opt-score">3</span><span class="opt-label">نصف الوقت — 50%</span></button>
+      <button class="opt-btn" onclick="selectOption(1,4)"><span class="opt-score">4</span><span class="opt-label">غالبًا — 70%</span></button>
+      <button class="opt-btn" onclick="selectOption(1,5)"><span class="opt-score">5</span><span class="opt-label">دائمًا — 100%</span></button>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" id="qcard-2">
+    <span class="q-number">سؤال ٣ من ٧</span>
+    <div class="q-text">خلال الشهر الماضي، كم مرة لاحظت أن التبول يتوقف ويعود عدة مرات؟
+      <div class="q-sub">انقطاع تدفق البول أثناء التبول</div>
+    </div>
+    <div class="options-grid" id="opts-2">
+      <button class="opt-btn" onclick="selectOption(2,0)"><span class="opt-score">0</span><span class="opt-label">أبدًا — 0%</span></button>
+      <button class="opt-btn" onclick="selectOption(2,1)"><span class="opt-score">1</span><span class="opt-label">نادرًا — 20%</span></button>
+      <button class="opt-btn" onclick="selectOption(2,2)"><span class="opt-score">2</span><span class="opt-label">أحيانًا — 33%</span></button>
+      <button class="opt-btn" onclick="selectOption(2,3)"><span class="opt-score">3</span><span class="opt-label">نصف الوقت — 50%</span></button>
+      <button class="opt-btn" onclick="selectOption(2,4)"><span class="opt-score">4</span><span class="opt-label">غالبًا — 70%</span></button>
+      <button class="opt-btn" onclick="selectOption(2,5)"><span class="opt-score">5</span><span class="opt-label">دائمًا — 100%</span></button>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card" id="qcard-3">
+    <span class="q-number">سؤال ٤ من ٧</span>
+    <div class="q-text">خلال الشهر الماضي، كم مرة صعب عليك تأجيل التبول عندما أحسست بالرغبة فيه؟
+      <div class="q-sub">الاضطرار للإسراع للحمام فورًا عند الشعور بالحاجة</div>
+    </div>
+    <div class="options-grid" id="opts-3">
+      <button class="opt-btn" onclick="selectOption(3,0)"><span class="opt-score">0</span><span class="opt-label">أبدًا — 0%</span></button>
+      <button class="opt-btn" onclick="selectOption(3,1)"><span class="opt-score">1</span><span class="opt-label">نادرًا — 20%</span></button>
+      <button class="opt-btn" onclick="selectOption(3,2)"><span class="opt-score">2</span><span class="opt-label">أحيانًا — 33%</span></button>
+      <button class="opt-btn" onclick="selectOption(3,3)"><span class="opt-score">3</span><span class="opt-label">نصف الوقت — 50%</span></button>
+      <button class="opt-btn" onclick="selectOption(3,4)"><span class="opt-score">4</span><span class="opt-label">غالبًا — 70%</span></button>
+      <button class="opt-btn" onclick="selectOption(3,5)"><span class="opt-score">5</span><span class="opt-label">دائمًا — 100%</span></button>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" id="qcard-4">
+    <span class="q-number">سؤال ٥ من ٧</span>
+    <div class="q-text">خلال الشهر الماضي، كم مرة لاحظت ضعف أو انخفاض في قوة تدفق البول؟
+      <div class="q-sub">البول يخرج بضغط أقل من المعتاد أو بطيء</div>
+    </div>
+    <div class="options-grid" id="opts-4">
+      <button class="opt-btn" onclick="selectOption(4,0)"><span class="opt-score">0</span><span class="opt-label">أبدًا — 0%</span></button>
+      <button class="opt-btn" onclick="selectOption(4,1)"><span class="opt-score">1</span><span class="opt-label">نادرًا — 20%</span></button>
+      <button class="opt-btn" onclick="selectOption(4,2)"><span class="opt-score">2</span><span class="opt-label">أحيانًا — 33%</span></button>
+      <button class="opt-btn" onclick="selectOption(4,3)"><span class="opt-score">3</span><span class="opt-label">نصف الوقت — 50%</span></button>
+      <button class="opt-btn" onclick="selectOption(4,4)"><span class="opt-score">4</span><span class="opt-label">غالبًا — 70%</span></button>
+      <button class="opt-btn" onclick="selectOption(4,5)"><span class="opt-score">5</span><span class="opt-label">دائمًا — 100%</span></button>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" id="qcard-5">
+    <span class="q-number">سؤال ٦ من ٧</span>
+    <div class="q-text">خلال الشهر الماضي، كم مرة احتجت للضغط أو الشد لتبدأ التبول؟
+      <div class="q-sub">صعوبة في بدء التبول والاحتياج لبذل مجهود</div>
+    </div>
+    <div class="options-grid" id="opts-5">
+      <button class="opt-btn" onclick="selectOption(5,0)"><span class="opt-score">0</span><span class="opt-label">أبدًا — 0%</span></button>
+      <button class="opt-btn" onclick="selectOption(5,1)"><span class="opt-score">1</span><span class="opt-label">نادرًا — 20%</span></button>
+      <button class="opt-btn" onclick="selectOption(5,2)"><span class="opt-score">2</span><span class="opt-label">أحيانًا — 33%</span></button>
+      <button class="opt-btn" onclick="selectOption(5,3)"><span class="opt-score">3</span><span class="opt-label">نصف الوقت — 50%</span></button>
+      <button class="opt-btn" onclick="selectOption(5,4)"><span class="opt-score">4</span><span class="opt-label">غالبًا — 70%</span></button>
+      <button class="opt-btn" onclick="selectOption(5,5)"><span class="opt-score">5</span><span class="opt-label">دائمًا — 100%</span></button>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card" id="qcard-6">
+    <span class="q-number">سؤال ٧ من ٧</span>
+    <div class="q-text">خلال الشهر الماضي، كم مرة في المتوسط استيقظت من النوم للتبول؟
+      <div class="q-sub">الاستيقاظ من النوم مرات في الليل بسبب الرغبة في التبول</div>
+    </div>
+    <div class="options-grid" id="opts-6">
+      <button class="opt-btn" onclick="selectOption(6,0)"><span class="opt-score">0</span><span class="opt-label">لا أستيقظ — 0</span></button>
+      <button class="opt-btn" onclick="selectOption(6,1)"><span class="opt-score">1</span><span class="opt-label">مرة واحدة</span></button>
+      <button class="opt-btn" onclick="selectOption(6,2)"><span class="opt-score">2</span><span class="opt-label">مرتان</span></button>
+      <button class="opt-btn" onclick="selectOption(6,3)"><span class="opt-score">3</span><span class="opt-label">٣ مرات</span></button>
+      <button class="opt-btn" onclick="selectOption(6,4)"><span class="opt-score">4</span><span class="opt-label">٤ مرات</span></button>
+      <button class="opt-btn" onclick="selectOption(6,5)"><span class="opt-score">5</span><span class="opt-label">٥ أو أكثر</span></button>
+    </div>
+  </div>
+
+  <!-- QoL -->
+  <div class="q-card" id="qcard-qol" style="border-right-color: var(--gold);">
+    <span class="q-number" style="background: var(--gold);">جودة الحياة</span>
+    <div class="q-text">إذا ظلت أعراض المسالك البولية هكذا لبقية حياتك، كيف ستشعر؟
+      <div class="q-sub">سؤال إضافي لتقييم تأثير الأعراض على جودة حياتك — لا يُحتسب في النقاط الأساسية</div>
+    </div>
+    <div class="qol-options">
+      <button class="qol-opt" onclick="selectQoL(0)"><span class="qol-emoji">😄</span><span class="qol-label">سعيد جدًا</span></button>
+      <button class="qol-opt" onclick="selectQoL(1)"><span class="qol-emoji">🙂</span><span class="qol-label">راضٍ</span></button>
+      <button class="qol-opt" onclick="selectQoL(2)"><span class="qol-emoji">😐</span><span class="qol-label">مقبول</span></button>
+      <button class="qol-opt" onclick="selectQoL(3)"><span class="qol-emoji">😕</span><span class="qol-label">مختلط</span></button>
+      <button class="qol-opt" onclick="selectQoL(4)"><span class="qol-emoji">😟</span><span class="qol-label">غير راضٍ</span></button>
+      <button class="qol-opt" onclick="selectQoL(5)"><span class="qol-emoji">😣</span><span class="qol-label">سيئ</span></button>
+      <button class="qol-opt" onclick="selectQoL(6)"><span class="qol-emoji">😫</span><span class="qol-label">سيئ جدًا</span></button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════
+     TAB 2: RESULTS
+     ═══════════════════════════════════════ -->
+<div id="tab-results" class="page page-results">
+  <div class="score-section">
+
+    <div id="results-placeholder" style="text-align:center;padding:60px 20px;color:var(--gray-mid)">
+      <div style="font-size:48px;margin-bottom:12px">📋</div>
+      <p style="font-size:14px">أكمل الأسئلة أولًا<br>للحصول على النتيجة</p>
+    </div>
+
+    <div id="results-content" style="display:none">
+
+      <!-- Score Hero -->
+      <div class="score-hero">
+        <div class="score-label">إجمالي درجة IPSS</div>
+        <div class="score-big" id="res-score">0</div>
+        <div class="score-max">من ٣٥</div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="res-bar" style="width:0%"></div>
+        </div>
+        <div id="res-category" class="score-category cat-mild">خفيف</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:8px" id="res-patient-name"></div>
+      </div>
+
+      <!-- Subscores -->
+      <div class="subscores-row">
+        <!-- Voiding -->
+        <div class="subscore-card voiding">
+          <span class="subscore-icon">🚿</span>
+          <div class="subscore-title">أعراض الإفراغ</div>
+          <span class="subscore-en">Voiding Symptoms</span>
+          <div class="subscore-num" id="sub-voiding">0</div>
+          <span class="subscore-max">/ 20</span>
+          <div class="subscore-bar-wrap"><div class="subscore-bar-fill" id="sub-voiding-bar" style="width:0%"></div></div>
+          <span class="subscore-cat s-mild" id="sub-voiding-cat">خفيف</span>
+          <div class="subscore-items">
+            <div class="subscore-item"><span>١. بقاء بول</span><span class="si-val" id="sv0">-</span></div>
+            <div class="subscore-item"><span>٣. انقطاع التدفق</span><span class="si-val" id="sv1">-</span></div>
+            <div class="subscore-item"><span>٥. ضعف التدفق</span><span class="si-val" id="sv2">-</span></div>
+            <div class="subscore-item"><span>٦. صعوبة البدء</span><span class="si-val" id="sv3">-</span></div>
+          </div>
+        </div>
+        <!-- Storage -->
+        <div class="subscore-card storage">
+          <span class="subscore-icon">🫧</span>
+          <div class="subscore-title">أعراض التخزين</div>
+          <span class="subscore-en">Storage Symptoms</span>
+          <div class="subscore-num" id="sub-storage">0</div>
+          <span class="subscore-max">/ 15</span>
+          <div class="subscore-bar-wrap"><div class="subscore-bar-fill" id="sub-storage-bar" style="width:0%"></div></div>
+          <span class="subscore-cat s-mild" id="sub-storage-cat">خفيف</span>
+          <div class="subscore-items">
+            <div class="subscore-item"><span>٢. تكرار التبول</span><span class="si-val" id="ss0">-</span></div>
+            <div class="subscore-item"><span>٤. صعوبة التأجيل</span><span class="si-val" id="ss1">-</span></div>
+            <div class="subscore-item"><span>٧. التبول الليلي</span><span class="si-val" id="ss2">-</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QoL -->
+      <div class="qol-result">
+        <div class="qol-big-emoji" id="res-qol-emoji">—</div>
+        <div class="qol-title">جودة الحياة</div>
+        <div class="qol-value" id="res-qol-text">لم يتم الإجابة</div>
+      </div>
+
+      <!-- Recommendation -->
+      <div id="res-reco" class="reco-card reco-mild">
+        <div class="reco-title" id="res-reco-title">✅ توصية الطبيب</div>
+        <div id="res-reco-text"></div>
+      </div>
+
+      <!-- Breakdown -->
+      <div class="breakdown-card">
+        <div class="section-title" style="margin-bottom:12px"><span>📊</span> تفاصيل الإجابات</div>
+        <div class="breakdown-item"><span class="b-label">١. الإحساس ببقاء بول في المثانة</span><span class="b-score" id="b0">-</span></div>
+        <div class="breakdown-item"><span class="b-label">٢. التبول المتكرر (أقل من ساعتين)</span><span class="b-score" id="b1">-</span></div>
+        <div class="breakdown-item"><span class="b-label">٣. انقطاع تدفق البول</span><span class="b-score" id="b2">-</span></div>
+        <div class="breakdown-item"><span class="b-label">٤. صعوبة تأجيل التبول</span><span class="b-score" id="b3">-</span></div>
+        <div class="breakdown-item"><span class="b-label">٥. ضعف تدفق البول</span><span class="b-score" id="b4">-</span></div>
+        <div class="breakdown-item"><span class="b-label">٦. الحاجة للضغط لبدء التبول</span><span class="b-score" id="b5">-</span></div>
+        <div class="breakdown-item"><span class="b-label">٧. الاستيقاظ ليلًا للتبول</span><span class="b-score" id="b6">-</span></div>
+      </div>
+
+      <!-- Scale Reference -->
+      <div class="breakdown-card" style="padding:14px">
+        <div class="section-title" style="margin-bottom:10px;font-size:13px"><span>📏</span> مفتاح التصنيف</div>
+        <div style="display:flex;gap:8px">
+          <div style="flex:1;text-align:center;padding:10px;background:rgba(45,158,107,0.1);border-radius:10px">
+            <div style="font-weight:800;color:var(--mild)">خفيف</div>
+            <div style="font-size:12px;color:var(--gray-text)">١ — ٧</div>
+          </div>
+          <div style="flex:1;text-align:center;padding:10px;background:rgba(217,119,6,0.1);border-radius:10px">
+            <div style="font-weight:800;color:var(--moderate)">متوسط</div>
+            <div style="font-size:12px;color:var(--gray-text)">٨ — ١٩</div>
+          </div>
+          <div style="flex:1;text-align:center;padding:10px;background:rgba(220,38,38,0.1);border-radius:10px">
+            <div style="font-weight:800;color:var(--severe)">شديد</div>
+            <div style="font-size:12px;color:var(--gray-text)">٢٠ — ٣٥</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="action-buttons">
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-whatsapp" id="wa-btn" onclick="sendWhatsApp()" style="flex:1">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            للمريض
+          </button>
+          <button class="btn btn-whatsapp" onclick="sendToClinicWA()" style="flex:1;background:linear-gradient(135deg,#128C7E 0%,#075E54 100%)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            للعيادة 🏥
+          </button>
+        </div>
+        <div class="export-row">
+          <button class="btn btn-outline" onclick="printResult()">🖨️ طباعة</button>
+          <button class="btn btn-outline" onclick="resetForm()">🔄 مريض جديد</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ── STICKY CALCULATOR ── -->
+<div class="sticky-calc" id="sticky-calc" style="display:none">
+  <div class="calc-info">
+    <div class="calc-score-display" id="calc-score">0</div>
+    <div class="calc-answered" id="calc-answered">أُجيب على 0 من 7 أسئلة</div>
+  </div>
+  <button class="calc-btn" id="calc-btn" onclick="showResults()" disabled>
+    عرض النتيجة ←
+  </button>
+</div>
+
+<!-- ── PATIENT DETAIL MODAL ── -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="modal-title">بيانات المريض</div>
+    <div id="modal-content"></div>
+    <div style="display:flex;gap:8px;margin-top:16px">
+      <button class="btn btn-whatsapp" id="modal-wa-btn" style="flex:1;font-size:13px;padding:12px" onclick="sendWhatsAppRecord()">
+        واتساب
+      </button>
+      <button class="btn btn-danger" id="modal-del-btn" style="flex:1" onclick="deleteRecord()">
+        🗑️ حذف
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast">✅ تم الحفظ بنجاح</div>
+
+<script>
+  // ══════════════════════════════════════
+  //  STATE
+  // ══════════════════════════════════════
+  const answers = new Array(7).fill(null);
+  let qolAnswer = null;
+  let activeModal = null;
+
+  const qolLabels = ['سعيد جدًا 😄','راضٍ 🙂','مقبول 😐','مختلط 😕','غير راضٍ 😟','سيئ 😣','سيئ جدًا 😫'];
+  const qolEmojis = ['😄','🙂','😐','😕','😟','😣','😫'];
+
+  // Set today's date
+  document.getElementById('pt-date').valueAsDate = new Date();
+
+  // ══════════════════════════════════════
+  //  TABS
+  // ══════════════════════════════════════
+  function switchTab(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-'+name).classList.add('active');
+    event.currentTarget.classList.add('active');
+
+    const calc = document.getElementById('sticky-calc');
+    calc.style.display = (name === 'assessment') ? 'flex' : 'none';
+
+
+  }
+
+  // ══════════════════════════════════════
+  //  QUESTION SELECTION
+  // ══════════════════════════════════════
+  function selectOption(q, val) {
+    answers[q] = val;
+    const btns = document.querySelectorAll(`#opts-${q} .opt-btn`);
+    btns.forEach((b,i) => b.classList.toggle('selected', i === val));
+    document.getElementById(`qcard-${q}`).classList.add('answered');
+    updateCalc();
+  }
+
+  function selectQoL(val) {
+    qolAnswer = val;
+    const btns = document.querySelectorAll('.qol-opt');
+    btns.forEach((b,i) => b.classList.toggle('selected', i === val));
+    document.getElementById('qcard-qol').classList.add('answered');
+  }
+
+  function updateCalc() {
+    const answered = answers.filter(a => a !== null).length;
+    const total = answers.filter(a => a !== null).reduce((s,v) => s+v, 0);
+    document.getElementById('calc-score').textContent = total;
+    document.getElementById('calc-answered').textContent = `أُجيب على ${answered} من 7 أسئلة`;
+    const btn = document.getElementById('calc-btn');
+    btn.disabled = answered < 7;
+    document.getElementById('sticky-calc').style.display = 'flex';
+  }
+
+  // ══════════════════════════════════════
+  //  RESULTS
+  // ══════════════════════════════════════
+  function calcScore() { return answers.reduce((s,v) => s + (v||0), 0); }
+
+  function getCategory(score) {
+    if (score <= 7) return { label:'خفيف', cls:'cat-mild', reco:'mild', color: '#2D9E6B' };
+    if (score <= 19) return { label:'متوسط', cls:'cat-moderate', reco:'moderate', color: '#D97706' };
+    return { label:'شديد', cls:'cat-severe', reco:'severe', color: '#DC2626' };
+  }
+
+  const recos = {
+    mild: {
+      icon: '✅',
+      title: 'الأعراض خفيفة — متابعة ومراقبة',
+      text: `• لا يوجد تدخل علاجي فوري مطلوب في الغالب.\n• يُنصح بتعديل نمط الحياة: تقليل السوائل قبل النوم، تجنب الكافيين والكحول.\n• يُراجع الطبيب إذا تطورت الأعراض أو تغيرت.\n• تُكرر قياس IPSS كل ٦-١٢ شهرًا.\n• المعيار: AUA Guidelines — Watchful Waiting`
+    },
+    moderate: {
+      icon: '⚠️',
+      title: 'الأعراض متوسطة — تحتاج علاجًا',
+      text: `• يُنصح بمراجعة الطبيب لتقييم الحالة وبدء العلاج.\n• الخيارات العلاجية الأولى: Alpha-blockers (مثل تامسولوسين) و/أو 5-ARIs.\n• يُستكمل الفحص: سونار، تدفق البول (Uroflowmetry)، PSA، بول متبقٍّ.\n• تُكرر قياس IPSS كل ٣-٦ شهور لمتابعة الاستجابة للعلاج.\n• المعيار: AUA Guidelines — Medical Therapy`
+    },
+    severe: {
+      icon: '🚨',
+      title: 'الأعراض شديدة — يستوجب متابعة عاجلة',
+      text: `• مراجعة فورية لطبيب المسالك البولية.\n• يُقيَّم وجود احتباس بول، التهاب، أو مضاعفات.\n• الخيارات تشمل: العلاج الدوائي المكثف أو التدخل الجراحي (HoLEP، TURP، أو غيره).\n• يُجرى تقييم كامل: Uroflowmetry، سونار، Cystoscopy إذا لزم.\n• المعيار: AUA Guidelines — Surgical Consideration`
+    }
+  };
+
+  function showResults() {
+    if (answers.some(a => a === null)) {
+      showToast('⚠️ أكمل جميع الأسئلة أولًا', '#D97706');
+      return;
+    }
+    const score = calcScore();
+    const cat = getCategory(score);
+    const reco = recos[cat.reco];
+
+    document.getElementById('res-score').textContent = score;
+    document.getElementById('res-bar').style.width = (score/35*100)+'%';
+    const catEl = document.getElementById('res-category');
+    catEl.textContent = cat.label;
+    catEl.className = 'score-category ' + cat.cls;
+
+    const name = document.getElementById('pt-name').value || 'المريض';
+    document.getElementById('res-patient-name').textContent = name;
+
+    // QoL
+    if (qolAnswer !== null) {
+      document.getElementById('res-qol-emoji').textContent = qolEmojis[qolAnswer];
+      document.getElementById('res-qol-text').textContent = qolLabels[qolAnswer];
+    }
+
+    // Reco
+    const recoEl = document.getElementById('res-reco');
+    recoEl.className = 'reco-card reco-' + cat.reco;
+    document.getElementById('res-reco-title').textContent = reco.icon + ' ' + reco.title;
+    document.getElementById('res-reco-text').innerHTML = reco.text.replace(/\n/g,'<br>');
+
+    // Subscores
+    // Voiding: Q1(idx0), Q3(idx2), Q5(idx4), Q6(idx5) — max 20
+    const voiding = (answers[0]||0) + (answers[2]||0) + (answers[4]||0) + (answers[5]||0);
+    // Storage: Q2(idx1), Q4(idx3), Q7(idx6) — max 15
+    const storage = (answers[1]||0) + (answers[3]||0) + (answers[6]||0);
+
+    document.getElementById('sub-voiding').textContent = voiding;
+    document.getElementById('sub-voiding-bar').style.width = (voiding/20*100)+'%';
+    document.getElementById('sv0').textContent = answers[0];
+    document.getElementById('sv1').textContent = answers[2];
+    document.getElementById('sv2').textContent = answers[4];
+    document.getElementById('sv3').textContent = answers[5];
+
+    document.getElementById('sub-storage').textContent = storage;
+    document.getElementById('sub-storage-bar').style.width = (storage/15*100)+'%';
+    document.getElementById('ss0').textContent = answers[1];
+    document.getElementById('ss1').textContent = answers[3];
+    document.getElementById('ss2').textContent = answers[6];
+
+    // Subscore categories
+    function subCat(val, max) {
+      const pct = val/max;
+      if (pct <= 0.33) return ['خفيف','s-mild'];
+      if (pct <= 0.66) return ['متوسط','s-moderate'];
+      return ['شديد','s-severe'];
+    }
+    const [vLabel, vCls] = subCat(voiding, 20);
+    const [sLabel, sCls] = subCat(storage, 15);
+    const vEl = document.getElementById('sub-voiding-cat');
+    vEl.textContent = vLabel; vEl.className = 'subscore-cat ' + vCls;
+    const sEl = document.getElementById('sub-storage-cat');
+    sEl.textContent = sLabel; sEl.className = 'subscore-cat ' + sCls;
+
+    // Breakdown
+    for(let i=0;i<7;i++) {
+      document.getElementById('b'+i).textContent = answers[i] ?? '-';
+    }
+
+    document.getElementById('results-placeholder').style.display = 'none';
+    document.getElementById('results-content').style.display = 'block';
+
+    // Switch tab
+    document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', i===1));
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('tab-results').classList.add('active');
+    document.getElementById('sticky-calc').style.display = 'none';
+    window.scrollTo(0,0);
+  }
+
+  // ══════════════════════════════════════
+  //  DATABASE (localStorage)
+  // ══════════════════════════════════════
+  function getDB() {
+    try { return JSON.parse(localStorage.getItem('ipss_db') || '[]'); }
+    catch { return []; }
+  }
+  function saveDB(db) { localStorage.setItem('ipss_db', JSON.stringify(db)); }
+
+  function saveToDatabase() {
+    if (answers.some(a => a === null)) {
+      showToast('⚠️ أكمل التقييم أولًا', '#D97706'); return;
+    }
+    const name = document.getElementById('pt-name').value.trim();
+    if (!name) {
+      showToast('⚠️ أدخل اسم المريض أولًا', '#D97706'); return;
+    }
+
+    const score = calcScore();
+    const cat = getCategory(score);
+    const db = getDB();
+
+    const record = {
+      id: Date.now(),
+      name,
+      phone: document.getElementById('pt-id').value.trim(),
+      age: document.getElementById('pt-age').value,
+      date: document.getElementById('pt-date').value || new Date().toISOString().split('T')[0],
+      score,
+      category: cat.label,
+      answers: [...answers],
+      qol: qolAnswer,
+      qolLabel: qolAnswer !== null ? qolLabels[qolAnswer] : null
+    };
+
+    db.unshift(record);
+    saveDB(db);
+    showToast('✅ تم حفظ سجل ' + name);
+  }
+
+
+  function formatDate(d) {
+    if (!d) return '';
+    const [y,m,day] = d.split('-');
+    return `${day}/${m}/${y}`;
+  }
+
+  // ══════════════════════════════════════
+  //  MODAL
+  // ══════════════════════════════════════
+
+  function closeModal(e) {
+    if (e.target === document.getElementById('modal-overlay')) {
+      document.getElementById('modal-overlay').classList.remove('open');
+    }
+  }
+
+
+  // ══════════════════════════════════════
+  //  WHATSAPP
+  // ══════════════════════════════════════
+  function buildWAMessage(r) {
+    const cat = getCategory(r.score);
+    const qnames = ['بقاء بول','تكرار التبول','انقطاع التدفق','صعوبة التأجيل','ضعف التدفق','صعوبة البدء','التبول الليلي'];
+    const answers = r.answers || [];
+    const qolLine = r.qolLabel ? `\nجودة الحياة: ${r.qolLabel}` : '';
+    const details = answers.map((a,i) => `  ${i+1}. ${qnames[i]}: ${a}`).join('\n');
+
+    const voiding = (answers[0]||0)+(answers[2]||0)+(answers[4]||0)+(answers[5]||0);
+    const storage = (answers[1]||0)+(answers[3]||0)+(answers[6]||0);
+    function subCatLabel(v,m){const p=v/m;return p<=0.33?'خفيف':p<=0.66?'متوسط':'شديد';}
+
+    return `🏥 *أ.د. محمد جلال الشيخ*
+_أستاذ جراحة المسالك البولية والتناسلية_
+━━━━━━━━━━━━━━━━━━━━━━
+📋 *تقرير IPSS — مقياس أعراض البروستاتا*
+
+👤 المريض: ${r.name}${r.age ? '\n🎂 العمر: '+r.age+' سنة' : ''}
+📅 التاريخ: ${formatDate(r.date)}
+
+━━━━━━━━━━━━━━━━━━━━━━
+🎯 *النتيجة الإجمالية: ${r.score} / 35 — ${r.category}*${qolLine}
+
+🚿 *أعراض الإفراغ (Voiding): ${voiding} / 20 — ${subCatLabel(voiding,20)}*
+  • بقاء بول في المثانة: ${answers[0]}
+  • انقطاع تدفق البول: ${answers[2]}
+  • ضعف تدفق البول: ${answers[4]}
+  • صعوبة بدء التبول: ${answers[5]}
+
+🫧 *أعراض التخزين (Storage): ${storage} / 15 — ${subCatLabel(storage,15)}*
+  • تكرار التبول: ${answers[1]}
+  • صعوبة تأجيل التبول: ${answers[3]}
+  • الاستيقاظ ليلًا: ${answers[6]}
+
+━━━━━━━━━━━━━━━━━━━━━━
+${recos[cat.reco].icon} *التوصية:* ${recos[cat.reco].title}
+
+_تم التقييم في عيادة أ.د. محمد جلال الشيخ_`;
+  }
+
+  const CLINIC_WA = '201020857272';
+
+  function sendToClinicWA() {
+    if (answers.some(a => a === null)) {
+      showToast('⚠️ أكمل التقييم أولًا ثم أرسل للعيادة', '#D97706'); return;
+    }
+    const score = calcScore();
+    const cat = getCategory(score);
+    const record = {
+      name: document.getElementById('pt-name').value || 'المريض',
+      age: document.getElementById('pt-age').value,
+      date: document.getElementById('pt-date').value || new Date().toISOString().split('T')[0],
+      score,
+      category: cat.label,
+      answers: [...answers],
+      qolLabel: qolAnswer !== null ? qolLabels[qolAnswer] : null
+    };
+    const msg = encodeURIComponent(buildWAMessage(record));
+    window.open(`https://wa.me/${CLINIC_WA}?text=${msg}`, '_blank');
+    showToast('✅ جاري فتح واتساب العيادة');
+  }
+
+  function sendWhatsApp() {
+    if (answers.some(a => a === null)) { showToast('⚠️ أكمل التقييم أولًا', '#D97706'); return; }
+    const score = calcScore();
+    const cat = getCategory(score);
+    const record = {
+      name: document.getElementById('pt-name').value || 'المريض',
+      age: document.getElementById('pt-age').value,
+      date: document.getElementById('pt-date').value || new Date().toISOString().split('T')[0],
+      score,
+      category: cat.label,
+      answers: [...answers],
+      qolLabel: qolAnswer !== null ? qolLabels[qolAnswer] : null
+    };
+    const msg = encodeURIComponent(buildWAMessage(record));
+    window.open('https://wa.me/?text='+msg, '_blank');
+  }
+
+  function sendWhatsAppRecord() {
+    if (!activeModal) return;
+    const msg = encodeURIComponent(buildWAMessage(activeModal));
+    const phone = activeModal.phone?.replace(/[^0-9]/g,'');
+    const url = phone ? `https://wa.me/${phone}?text=${msg}` : `https://wa.me/?text=${msg}`;
+    window.open(url, '_blank');
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+
+
+  // ══════════════════════════════════════
+  //  EXPORT CSV
+  // ══════════════════════════════════════
+
+  // ══════════════════════════════════════
+  //  UTILS
+  // ══════════════════════════════════════
+  function showToast(msg, color='#2D9E6B') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.background = color;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  function resetForm() {
+    answers.fill(null);
+    qolAnswer = null;
+    document.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('.qol-opt').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('.q-card').forEach(c => c.classList.remove('answered'));
+    document.getElementById('pt-name').value = '';
+    document.getElementById('pt-id').value = '';
+    document.getElementById('pt-age').value = '';
+    document.getElementById('pt-date').valueAsDate = new Date();
+    document.getElementById('results-content').style.display = 'none';
+    document.getElementById('results-placeholder').style.display = 'block';
+    document.getElementById('calc-score').textContent = '0';
+    document.getElementById('calc-answered').textContent = 'أُجيب على 0 من 7 أسئلة';
+    document.getElementById('calc-btn').disabled = true;
+    switchTabDirect('assessment');
+    window.scrollTo(0,0);
+  }
+
+  function switchTabDirect(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', ['assessment','results'][i]===name));
+    document.getElementById('tab-'+name).classList.add('active');
+    document.getElementById('sticky-calc').style.display = name==='assessment' ? 'flex' : 'none';
+  }
+
+  function printResult() { window.print(); }
+
+  // ── Init ──
+  document.getElementById('sticky-calc').style.display = 'flex';
+</script>
+</body>
+</html>
